@@ -1,0 +1,17 @@
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  padding:100px 40px;
+}
+
+.card{
+  background:#111827;
+  padding:20px;
+  border-radius:10px;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+}

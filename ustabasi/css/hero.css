@@ -1,0 +1,16 @@
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:linear-gradient(135deg,#1e3a8a,#0f172a);
+}
+
+.hero h1{
+  font-size:60px;
+}
+
+.hero p{
+  opacity:.7;
+}

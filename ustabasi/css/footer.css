@@ -1,0 +1,10 @@
+.about, .contact {
+    text-align: center;
+    padding: 60px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #0b1220;
+}

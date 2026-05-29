@@ -1,0 +1,21 @@
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:15px 40px;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(10px);
+}
+
+.logo{
+  color:#facc15;
+  font-weight:bold;
+}
+
+.navbar a{
+  color:white;
+  margin-left:15px;
+  text-decoration:none;
+}
