@@ -49,19 +49,35 @@ async function ustalar() {
   let cat = qs("kategori") || "";
   cityEl.innerHTML = citiesOpts(qs("sehir") || "", "Tüm şehirler");
   qEl.value = qs("q") || "";
+  const sortEl = $("#fSort"), verEl = $("#fVerified");
+  if ([...sortEl.options].some(o => o.value === qs("sirala"))) sortEl.value = qs("sirala");
+  verEl.checked = qs("dogrulanmis") === "1";
+  // filtreler adres çubuğuna yazılır: sayfa yenilenince / paylaşılınca korunur
+  const syncUrl = () => {
+    const p = new URLSearchParams();
+    if (cat) p.set("kategori", cat);
+    if (cityEl.value) p.set("sehir", cityEl.value);
+    if (qEl.value.trim()) p.set("q", qEl.value.trim());
+    if (sortEl.value !== "rating") p.set("sirala", sortEl.value);
+    if (verEl.checked) p.set("dogrulanmis", "1");
+    history.replaceState(null, "", location.pathname + (p.toString() ? "?" + p : ""));
+  };
   const drawChips = () => {
     chips.innerHTML = `<button class="chip${!cat ? " active" : ""}" data-c="">Tümü</button>` + cats.map(c => `<button class="chip${cat === c.id ? " active" : ""}" data-c="${esc(c.id)}">${esc(c.name)}</button>`).join("");
   };
   const load = async () => {
     grid.innerHTML = skeletons(6);
     try {
-      const list = await api.listUstalar({ category: cat, city: cityEl.value, q: qEl.value.trim() });
+      syncUrl();
+      const list = await api.listUstalar({ category: cat, city: cityEl.value, q: qEl.value.trim(), sort: sortEl.value, verified: verEl.checked });
       count.textContent = `${list.length} usta bulundu`;
       grid.innerHTML = list.length ? list.map(u => ustaCard(u, cats)).join("") : `<div class="empty" style="grid-column:1/-1">Bu kriterlere uygun usta bulunamadı.<br><a class="grad-text" href="/teklif-al${cat ? "?kategori=" + encodeURIComponent(cat) : ""}">Ücretsiz teklif talebi oluşturun →</a></div>`;
     } catch (e) { fail(grid, e); }
   };
   chips.addEventListener("click", (e) => { const b = e.target.closest("[data-c]"); if (!b) return; cat = b.dataset.c; drawChips(); load(); });
   cityEl.addEventListener("change", load);
+  sortEl.addEventListener("change", load);
+  verEl.addEventListener("change", load);
   let t; qEl.addEventListener("input", () => { clearTimeout(t); t = setTimeout(load, 300); });
   drawChips(); load();
 }
@@ -75,6 +91,14 @@ async function usta() {
     const [u, cats, reviews, user] = await Promise.all([api.getUsta(id), api.getCategories(), api.listReviews(id), api.getUser()]);
     if (!u) { root.innerHTML = '<div class="empty">Usta bulunamadı. <a class="grad-text" href="/ustalar">Tüm ustalar</a></div>'; return; }
     document.title = `${u.full_name} – ${u.title} | USTABAŞI`;
+    document.getElementById("ldUsta")?.remove();
+    const ld = document.createElement("script");
+    ld.id = "ldUsta";
+    ld.type = "application/ld+json";
+    ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "Person", name: u.full_name, jobTitle: u.title, address: { "@type": "PostalAddress", addressLocality: u.city, addressCountry: "TR" }, ...(u.rating_count ? { aggregateRating: { "@type": "AggregateRating", ratingValue: Number(u.rating_avg).toFixed(1), reviewCount: u.rating_count } } : {}) }).replace(/</g, "\\u003c");
+    document.head.appendChild(ld);
+    const dist = [5, 4, 3, 2, 1].map(n => [n, reviews.filter(r => r.rating === n).length]);
+    const bars = reviews.length ? `<div class="rating-bars" aria-label="Puan dağılımı">${dist.map(([n, c]) => `<div><span>${n} ★</span><i><b style="width:${Math.round(c / reviews.length * 100)}%"></b></i><span>${c}</span></div>`).join("")}</div>` : "";
     root.innerHTML = `
     <div class="two-col">
       <div>
@@ -84,7 +108,7 @@ async function usta() {
           <div class="stats"><div class="stat"><b>${Number(u.rating_avg || 0).toFixed(1)}</b><span>Puan</span></div><div class="stat"><b>${u.rating_count || 0}</b><span>Yorum</span></div><div class="stat"><b>${u.experience_years || 0}</b><span>Yıl tecrübe</span></div><div class="stat"><b>${money(u.hourly_rate)}</b><span>Saatlik başlangıç</span></div></div>
           <h2 style="font-size:1.2rem;margin-bottom:.5rem">Hakkında</h2><p class="muted">${esc(u.bio || "Henüz bilgi eklenmemiş.")}</p></div>
         <h2 style="font-size:1.4rem;margin:2rem 0 1rem">Yorumlar</h2>
-        <div id="reviews">${reviews.length ? reviews.map(r => `<div class="card" style="margin-bottom:1rem"><div class="stars">${stars(r.rating)}</div><p style="margin:.4rem 0;color:#dbe3f5">${esc(r.comment)}</p><small class="muted">${esc(r.author_name || "Müşteri")} · ${fmtDate(r.created_at)}</small></div>`).join("") : '<div class="empty">Henüz yorum yok.</div>'}</div>
+        ${bars}<div id="reviews">${reviews.length ? reviews.map(r => `<div class="card" style="margin-bottom:1rem"><div class="stars">${stars(r.rating)}</div><p style="margin:.4rem 0;color:#dbe3f5">${esc(r.comment)}</p><small class="muted">${esc(r.author_name || "Müşteri")} · ${fmtDate(r.created_at)}</small></div>`).join("") : '<div class="empty">Henüz yorum yok.</div>'}</div>
         <form id="reviewForm" class="card" style="margin-top:1rem" novalidate><h3 style="margin-top:0">Yorum yaz</h3><div id="rvMsg"></div>
           <div class="field"><label for="rvRating">Puan</label><select id="rvRating"><option value="5">★★★★★ Mükemmel</option><option value="4">★★★★ İyi</option><option value="3">★★★ Orta</option><option value="2">★★ Zayıf</option><option value="1">★ Kötü</option></select></div>
           <div class="field"><label for="rvText">Yorumunuz</label><textarea id="rvText" maxlength="1000" placeholder="Deneyiminizi paylaşın…"></textarea></div>
@@ -92,8 +116,14 @@ async function usta() {
       </div>
       <aside class="card" style="position:sticky;top:92px"><h3 style="margin-top:0">${esc(u.full_name.split(" ")[0])} ile çalış</h3><p>Ücretsiz teklif talebi oluştur, usta sana dönüş yapsın.</p>
         <a class="btn btn-primary btn-block" style="margin-top:1rem" href="/teklif-al?kategori=${encodeURIComponent(u.category_id)}${isUuid(u.id) ? "&usta=" + encodeURIComponent(u.id) : ""}">Teklif İste</a>
-        <ul style="list-style:none;margin-top:1.2rem;color:var(--muted);font-size:.9rem;display:grid;gap:.5rem"><li>✓ Ücretsiz keşif/teklif</li><li>✓ Usta doğrulama süreci</li><li>✓ Şeffaf puan ve yorumlar</li></ul></aside>
+        <ul style="list-style:none;margin-top:1.2rem;color:var(--muted);font-size:.9rem;display:grid;gap:.5rem"><li>✓ Ücretsiz keşif/teklif</li><li>✓ Usta doğrulama süreci</li><li>✓ Şeffaf puan ve yorumlar</li></ul>
+        <div class="share-row"><button class="btn btn-ghost btn-sm" id="shareBtn" type="button">Profili paylaş</button></div></aside>
     </div>`;
+    $("#shareBtn").addEventListener("click", async () => {
+      const data = { title: document.title, url: location.href };
+      try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(data.url); toast("Bağlantı kopyalandı", "ok"); } }
+      catch (err) { if (err?.name !== "AbortError") toast("Bağlantı kopyalanamadı", "err"); }
+    });
     $("#reviewForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const msg = $("#rvMsg");
@@ -148,41 +178,6 @@ async function galeri() {
     lb.addEventListener("click", (e) => { if (e.target === lb || e.target.id === "lbClose") lb.classList.remove("open"); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") lb.classList.remove("open"); });
   } catch (e) { fail(grid, e); }
-}
-
-/* ---------- USTAGRAM ---------- */
-async function ustagram() {
-  const feed = $("#feed"), box = $("#postForm"), msg = $("#pMsg");
-  const user = await api.getUser();
-  box.hidden = !user;
-  $("#loginHint").hidden = !!user;
-  const draw = async () => {
-    try {
-      const posts = await api.listPosts();
-      const likedSet = api.isLive ? null : api.demoLiked();
-      feed.innerHTML = posts.length ? posts.map(p => {
-        const liked = likedSet ? likedSet.has(p.id) : p.liked;
-        const count = (p.like_count || 0) + (likedSet && likedSet.has(p.id) ? 1 : 0);
-        return `<article class="post"><div class="post-head"><div class="avatar">${esc(initials(p.author_name))}</div><div><b>${esc(p.author_name || "Üye")}</b> ${p.author_role === "usta" ? '<span class="pill ok">Usta</span>' : ""}<small>${fmtDate(p.created_at)}</small></div></div>
-        <p>${esc(p.body)}</p><div class="post-actions"><button data-like="${esc(p.id)}" class="${liked ? "liked" : ""}" aria-pressed="${!!liked}">${liked ? "♥" : "♡"} ${count}</button>${user && p.user_id === user.id ? `<button data-del="${esc(p.id)}">Sil</button>` : ""}</div></article>`;
-      }).join("") : '<div class="empty">İlk paylaşımı sen yap!</div>';
-      feed._posts = posts;
-    } catch (e) { fail(feed, e); }
-  };
-  feed.addEventListener("click", async (e) => {
-    const l = e.target.closest("[data-like]"), d = e.target.closest("[data-del]");
-    try {
-      if (l) { if (!user) return (location.href = "/giris?next=/ustagram"); const post = feed._posts.find(p => p.id === l.dataset.like); const likedSet = api.isLive ? null : api.demoLiked(); post.liked = likedSet ? likedSet.has(post.id) : post.liked; await api.toggleLike(post); draw(); }
-      if (d && confirm("Bu paylaşım silinsin mi?")) { await api.deletePost(d.dataset.del); draw(); }
-    } catch (err) { toast(api.trError(err), "err"); }
-  });
-  $("#postForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const body = $("#postBody").value.trim();
-    if (body.length < 3) return alertBox(msg, "Paylaşım çok kısa.");
-    try { await api.createPost(body); $("#postBody").value = ""; alertBox(msg, ""); draw(); } catch (err) { alertBox(msg, api.trError(err)); }
-  });
-  draw();
 }
 
 /* ---------- USTA TV ---------- */
@@ -334,4 +329,4 @@ async function admin() {
   draw().catch((e) => fail(root, e));
 }
 
-export const PAGES = { index, ustalar, usta, "teklif-al": teklif, galeri, ustagram, "usta-tv": ustaTv, giris, "usta-ol": ustaOl, profil, iletisim, admin };
+export const PAGES = { index, ustalar, usta, "teklif-al": teklif, galeri, "usta-tv": ustaTv, giris, "usta-ol": ustaOl, profil, iletisim, admin };
