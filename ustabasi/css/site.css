@@ -164,18 +164,17 @@ select option{background:#0b1220}
 .lightbox .inner .art svg{width:96px;height:96px}
 .lightbox .body{padding:1.4rem 1.6rem}
 
-/* USTAGRAM */
-.feed{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:1.2rem}
-.post{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1.3rem}
-.post-head{display:flex;gap:.8rem;align-items:center;margin-bottom:.9rem}
-.post-head .avatar{width:44px;height:44px;font-size:1rem}
-.post-head small{color:var(--muted);display:block;font-size:.78rem}
-.post p{white-space:pre-wrap;word-break:break-word}
-.post-actions{display:flex;gap:1rem;margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--line)}
-.post-actions button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.9rem;display:flex;gap:.4rem;align-items:center}
-.post-actions button:hover,.post-actions button.liked{color:var(--danger)}
-.composer textarea{min-height:90px;margin-bottom:.8rem}
-.composer{margin-bottom:1.4rem}
+/* FİLTRE ÇUBUĞU */
+.searchbar-wide{grid-template-columns:2fr 1fr 1fr auto;max-width:none;align-items:center}
+.check-inline{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:var(--muted);cursor:pointer;white-space:nowrap;padding:0 .4rem}
+.check-inline input{width:auto;accent-color:var(--cyan)}
+@media(max-width:760px){.searchbar-wide{grid-template-columns:1fr 1fr}.searchbar-wide>div:first-child{grid-column:1/-1}}
+.share-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}
+.rating-bars{display:grid;gap:.35rem;margin:1rem 0 1.4rem}
+.rating-bars div{display:grid;grid-template-columns:2.2rem 1fr 2rem;gap:.6rem;align-items:center;font-size:.82rem;color:var(--muted)}
+.rating-bars i{display:block;height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.rating-bars i b{display:block;height:100%;background:var(--grad)}
+.steps-home .card{position:relative}
 
 /* TV */
 .video{border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--line)}

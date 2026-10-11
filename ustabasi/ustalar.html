@@ -9,6 +9,8 @@
 <meta name="theme-color" content="#060a14">
 <link rel="canonical" href="https://ustabasii.com.tr/ustalar">
 <link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/images/icon-192.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="USTABAŞI">
 <meta property="og:locale" content="tr_TR">
@@ -29,9 +31,11 @@
 <section class="page-hero"><div class="container"><h1>Ustalar</h1><p>Kategori ve şehre göre filtrele, puan ve yorumlara bak, teklif iste.</p></div></section>
 <section class="container" style="padding-bottom:3rem">
   <div class="filters" id="chips" role="group" aria-label="Kategori filtresi"></div>
-  <div class="searchbar" style="grid-template-columns:1fr 1fr;max-width:none">
+  <div class="searchbar searchbar-wide">
     <div><label class="sr-only" for="fQ">Ara</label><input id="fQ" type="search" placeholder="Usta adı veya unvan ara…"></div>
     <div><label class="sr-only" for="fCity">Şehir</label><select id="fCity"></select></div>
+    <div><label class="sr-only" for="fSort">Sırala</label><select id="fSort"><option value="rating">En yüksek puan</option><option value="reviews">En çok yorum</option><option value="exp">En tecrübeli</option><option value="price">En düşük fiyat</option></select></div>
+    <label class="check-inline"><input type="checkbox" id="fVerified"> Sadece doğrulanmış</label>
   </div>
   <p class="muted" id="count" style="margin:-.8rem 0 1.2rem" aria-live="polite"></p>
   <div class="grid grid-3" id="ustaGrid"></div>

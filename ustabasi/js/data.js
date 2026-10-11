@@ -70,8 +70,3 @@ export const DEMO_VIDEOS = [
   {id:"v2",title:"Su kaçağını erken fark etmenin 5 yolu",description:"Faturanız artmadan önce önlem alın.",youtube_id:"",c1:"#2f6bff",c2:"#8b5cf6"},
   {id:"v3",title:"Klima bakımı kendi başınıza ne kadar yapılır?",description:"Filtre temizliği ve sezon öncesi kontrol listesi.",youtube_id:"",c1:"#8b5cf6",c2:"#19d3ff"}
 ];
-
-export const DEMO_POSTS = [
-  {id:"p1",user_id:uid(1),author_name:"Mehmet Yıldız",author_role:"usta",body:"Bugün Kadıköy'de bir dairenin tüm panosunu yeniledik. Sigorta paneli etiketlemesi iş güvenliği için şart! ⚡",like_count:24,created_at:"2026-10-09T08:30:00Z"},
-  {id:"p2",user_id:uid(2),author_name:"Ayşe Demir",author_role:"usta",body:"Boya öncesi yüzey hazırlığı işin %70'i. Acele edilen yüzey, kısa ömürlü boya demektir.",like_count:18,created_at:"2026-10-08T14:10:00Z"}
-];

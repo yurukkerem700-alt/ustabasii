@@ -1,5 +1,5 @@
 // Veri katmanı: Supabase yapılandırılmışsa gerçek veritabanı, değilse localStorage demo modu.
-import { CATEGORIES, DEMO_USTALAR, DEMO_REVIEWS, DEMO_GALLERY, DEMO_VIDEOS, DEMO_POSTS } from "./data.js";
+import { CATEGORIES, DEMO_USTALAR, DEMO_REVIEWS, DEMO_GALLERY, DEMO_VIDEOS } from "./data.js";
 
 const cfg = window.USTABASI_CONFIG || {};
 export const isLive = Boolean(cfg.supabaseUrl && cfg.supabaseAnonKey);
@@ -104,17 +104,28 @@ export async function getCategories() {
   const d = unwrap(await c.from("categories").select("*").order("sort"));
   return d.length ? d : CATEGORIES;
 }
-export async function listUstalar({ category, city, q, limit = 60 } = {}) {
+const SORTS = {
+  rating: { col: "rating_avg", asc: false },
+  reviews: { col: "rating_count", asc: false },
+  exp: { col: "experience_years", asc: false },
+  price: { col: "hourly_rate", asc: true }
+};
+export async function listUstalar({ category, city, q, verified, sort = "rating", limit = 60 } = {}) {
+  const s = SORTS[sort] || SORTS.rating;
   if (!isLive) {
     const mine = ls.get("ustalar", []).filter(u => u.status === "approved");
+    // fiyatı olmayan ustalar fiyat sıralamasında sona düşer
+    const val = (u) => s.col === "hourly_rate" ? (u.hourly_rate || Infinity) : (u[s.col] || 0);
     return [...DEMO_USTALAR, ...mine].filter(u =>
       (!category || u.category_id === category) &&
       (!city || u.city === city) &&
+      (!verified || u.verified) &&
       (!q || (u.full_name + " " + u.title + " " + u.bio).toLocaleLowerCase("tr").includes(q.toLocaleLowerCase("tr")))
-    ).slice(0, limit);
+    ).sort((a, b) => s.asc ? val(a) - val(b) : val(b) - val(a)).slice(0, limit);
   }
   const c = await sb();
-  let query = c.from("ustalar_public").select("*").order("rating_avg", { ascending: false }).limit(limit);
+  let query = c.from("ustalar_public").select("*").order(s.col, { ascending: s.asc, nullsFirst: false }).limit(limit);
+  if (verified) query = query.eq("verified", true);
   if (category) query = query.eq("category_id", category);
   if (city) query = query.eq("city", city);
   if (q) query = query.or(`full_name.ilike.%${q.replace(/[%,()]/g, " ")}%,title.ilike.%${q.replace(/[%,()]/g, " ")}%`);
@@ -200,49 +211,6 @@ export async function listVideos() {
   if (!isLive) return DEMO_VIDEOS;
   const c = await sb();
   return unwrap(await c.from("tv_videos").select("*").eq("published", true).order("created_at", { ascending: false }));
-}
-
-// ---------- USTAGRAM ----------
-export async function listPosts() {
-  if (!isLive) return [...ls.get("posts", []), ...DEMO_POSTS].sort((a, b) => b.created_at.localeCompare(a.created_at));
-  const c = await sb();
-  const user = await getUser();
-  const posts = unwrap(await c.from("posts_public").select("*").order("created_at", { ascending: false }).limit(50));
-  if (user && posts.length) {
-    const likes = unwrap(await c.from("post_likes").select("post_id").eq("user_id", user.id).in("post_id", posts.map(p => p.id)));
-    const set = new Set(likes.map(l => l.post_id));
-    posts.forEach(p => { p.liked = set.has(p.id); });
-  }
-  return posts;
-}
-export async function createPost(body) {
-  const user = await getUser();
-  if (!user) throw new Error("Paylaşım yapmak için giriş yapmalısınız.");
-  if (!isLive) {
-    const l = ls.get("posts", []);
-    l.push({ id: rid(), user_id: user.id, author_name: user.full_name, author_role: "customer", body, like_count: 0, created_at: new Date().toISOString() });
-    ls.set("posts", l); return;
-  }
-  const c = await sb();
-  unwrap(await c.from("posts").insert({ user_id: user.id, body }));
-}
-export async function toggleLike(post) {
-  const user = await getUser();
-  if (!user) throw new Error("Beğenmek için giriş yapmalısınız.");
-  if (!isLive) {
-    const liked = ls.get("likes", []);
-    const i = liked.indexOf(post.id);
-    if (i >= 0) liked.splice(i, 1); else liked.push(post.id);
-    ls.set("likes", liked); return;
-  }
-  const c = await sb();
-  if (post.liked) unwrap(await c.from("post_likes").delete().eq("post_id", post.id).eq("user_id", user.id));
-  else unwrap(await c.from("post_likes").insert({ post_id: post.id, user_id: user.id }));
-}
-export const demoLiked = () => new Set(ls.get("likes", []));
-export async function deletePost(id) {
-  if (!isLive) { ls.set("posts", ls.get("posts", []).filter(p => p.id !== id)); return; }
-  const c = await sb(); unwrap(await c.from("posts").delete().eq("id", id));
 }
 
 // ---------- ADMİN ----------

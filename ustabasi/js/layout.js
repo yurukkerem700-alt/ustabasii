@@ -28,7 +28,6 @@ const NAV = [
   ["/ustalar", "Ustalar", "ustalar"],
   ["/nasil-calisir", "Nasıl Çalışır?", "nasil-calisir"],
   ["/galeri", "Galeri", "galeri"],
-  ["/ustagram", "Ustagram", "ustagram"],
   ["/usta-tv", "Usta TV", "usta-tv"]
 ];
 
@@ -58,7 +57,7 @@ export async function renderLayout() {
       <div><a class="brand" href="/"><img src="/images/logo-mark.webp" alt="" width="44" height="28"><span>USTABAŞI</span></a>
         <p class="about">Türkiye'nin yeni nesil usta platformu. Doğrulanmış ustalara dakikalar içinde ulaş, teklif al, güvenle çalış.</p></div>
       <div><h4>Platform</h4><ul><li><a href="/ustalar">Ustalar</a></li><li><a href="/nasil-calisir">Nasıl Çalışır?</a></li><li><a href="/teklif-al">Teklif Al</a></li><li><a href="/usta-ol">Usta Ol</a></li></ul></div>
-      <div><h4>Topluluk</h4><ul><li><a href="/galeri">Galeri</a></li><li><a href="/ustagram">Ustagram</a></li><li><a href="/usta-tv">Usta TV</a></li></ul></div>
+      <div><h4>Topluluk</h4><ul><li><a href="/galeri">Galeri</a></li><li><a href="/usta-tv">Usta TV</a></li></ul></div>
       <div><h4>Kurumsal</h4><ul><li><a href="/iletisim">İletişim</a></li><li><a href="/kvkk">KVKK & Gizlilik</a></li><li><a href="/kullanim-kosullari">Kullanım Koşulları</a></li>${cfg.contactEmail ? `<li><a href="mailto:${esc(cfg.contactEmail)}">${esc(cfg.contactEmail)}</a></li>` : ""}</ul></div>
     </div>
     <div class="copyright"><span>© ${new Date().getFullYear()} USTABAŞI · Tüm hakları saklıdır.</span><span>Bir <b>YÖRÜKHAN TECH</b> ürünüdür.</span></div>

@@ -3,7 +3,7 @@
 # USTABAŞI
 
 Türkiye'nin yeni nesil usta platformu — **YÖRÜKHAN TECH** ürünü.
-Müşteriler ücretsiz teklif ister, doğrulanmış ustalar profil açar; yorum, Ustagram akışı, galeri ve Usta TV içerir.
+Müşteriler ücretsiz teklif ister, doğrulanmış ustalar profil açar; yorum, galeri ve Usta TV içerir.
 
 ## Yapı
 
