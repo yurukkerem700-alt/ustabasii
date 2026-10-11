@@ -1,167 +1,80 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>USTABAŞI</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>USTABAŞI – Türkiye'nin Yeni Nesil Usta Platformu</title>
+<meta name="description" content="Elektrikten tesisata, boyadan nakliyata doğrulanmış ustalara dakikalar içinde ulaşın. Ücretsiz teklif alın, puan ve yorumlara göre güvenle seçin.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#060a14">
+<link rel="canonical" href="https://ustabasii.com.tr/">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="USTABAŞI">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="USTABAŞI – Türkiye'nin Yeni Nesil Usta Platformu">
+<meta property="og:description" content="Elektrikten tesisata, boyadan nakliyata doğrulanmış ustalara dakikalar içinde ulaşın. Ücretsiz teklif alın, puan ve yorumlara göre güvenle seçin.">
+<meta property="og:url" content="https://ustabasii.com.tr/">
+<meta property="og:image" content="https://ustabasii.com.tr/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="/css/site.css">
 
-<link rel="stylesheet" href="css/style.css">
 </head>
+<body data-page="index">
+<main>
 
-<body>
+<section class="hero"><div class="container hero-grid">
+  <div>
+    <span class="eyebrow">Yeni nesil usta platformu</span>
+    <h1>Doğru ustayı <span class="grad-text">dakikalar içinde</span> bul.</h1>
+    <p class="lead">Elektrikten tesisata, boyadan nakliyata kadar doğrulanmış ustalardan ücretsiz teklif al; puan ve yorumlara göre güvenle seç.</p>
+    <form class="searchbar" id="heroSearch" aria-label="Usta ara">
+      <label class="sr-only" for="heroCat">Kategori</label><select id="heroCat"></select>
+      <label class="sr-only" for="heroCity">Şehir</label><select id="heroCity"></select>
+      <button class="btn btn-primary" type="submit">Usta Bul</button>
+    </form>
+    <div class="hero-actions"><a class="btn btn-ghost" href="/teklif-al">Ücretsiz Teklif Al</a><a class="btn btn-ghost" href="/nasil-calisir">Nasıl Çalışır?</a></div>
+    <div class="badges"><div><b>10+</b>Hizmet kategorisi</div><div><b>0 ₺</b>Teklif talebi</div><div><b>✓</b>Doğrulanmış usta rozeti</div></div>
+  </div>
+  <div class="hero-visual">
+    <img src="/images/hero-bg.webp" alt="YÖRÜKHAN TECH — USTABAŞI markası" width="800" height="400" fetchpriority="high">
+    <div class="float-card a"><span class="dot"></span><span><b>Doğrulanmış usta</b><br><small class="muted">Kimlik ve belge kontrolü</small></span></div>
+    <div class="float-card b"><span class="stars">★★★★★</span><span><b>4.8</b> ortalama puan</span></div>
+  </div>
+</div></section>
 
-<nav>
+<section class="section"><div class="container">
+  <div class="section-head"><span class="eyebrow">Hizmetler</span><h2>Popüler hizmet kategorileri</h2><p>İhtiyacın olan işi seç, bölgendeki ustaları gör.</p></div>
+  <div class="grid grid-4" id="categories"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+</div></section>
 
-<div class="container nav-inner">
+<section class="section" style="padding-top:0"><div class="container">
+  <div class="section-head"><span class="eyebrow">Neden USTABAŞI</span><h2>Güvenle, hızlı ve şeffaf</h2></div>
+  <div class="grid grid-4">
+    <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Doğrulanmış ustalar</h3><p>Başvuran her usta ekibimiz tarafından incelenir; doğrulananlar rozet alır.</p></div>
+    <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Hızlı dönüş</h3><p>Teklif talebin ilgili kategorideki ustalara anında ulaşır.</p></div>
+    <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.2.9-4.5 4.3 1.1 6.100L12 17l-5.500 2.900 1.100-6.100L3.100 9.500l6.200-.9z"/></svg></div><h3>Gerçek yorumlar</h3><p>Puanlar yalnızca hesaplı müşterilerden gelir, usta kendi puanını değiştiremez.</p></div>
+    <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg></div><h3>Ücretsiz teklif</h3><p>Teklif almak için ücret ödemezsin; karşılaştır, sen karar ver.</p></div>
+  </div>
+</div></section>
 
-<div class="logo">
-<div class="logo-circle">U</div>
-<h1>USTABAŞI</h1>
-</div>
+<section class="section" style="padding-top:0"><div class="container">
+  <div class="section-head"><span class="eyebrow">Ustalar</span><h2>Öne çıkan ustalar</h2><p>Puanı yüksek, tecrübeli profesyoneller.</p></div>
+  <div class="grid grid-3" id="featured"></div>
+  <div style="text-align:center;margin-top:2rem"><a class="btn btn-ghost" href="/ustalar">Tüm ustaları gör</a></div>
+</div></section>
 
-<div class="nav-links" id="navLinks">
-<a href="index.html">Ana Sayfa</a>
-<a href="galeri.html">Galeri</a>
-<a href="ustagram.html">Ustagram</a>
-<a href="profil.html">Profil</a>
-</div>
+<section class="section" style="padding-top:0"><div class="container">
+  <div class="cta"><h2>Usta mısın? Müşteriler seni bulsun.</h2><p>Ücretsiz profil oluştur, bölgendeki iş taleplerine ulaş, puanlarınla güven kazan.</p>
+  <a class="btn btn-primary" href="/usta-ol">Usta Olarak Başvur</a></div>
+</div></section>
 
-<div class="nav-buttons">
-<a class="btn btn-outline">Usta Ol</a>
-<a class="btn btn-main">Giriş Yap</a>
-</div>
-
-<div class="mobile-toggle" onclick="toggleMenu()">
-☰
-</div>
-
-</div>
-
-</nav>
-
-<section class="hero">
-
-<div class="container hero-grid">
-
-<div>
-
-<h2>
-Türkiye'nin Yeni Nesil<br>
-<span>Usta Platformu</span>
-</h2>
-
-<p>
-Elektrikten tesisata kadar tüm ustalara modern sistem üzerinden ulaş.
-</p>
-
-<div class="hero-buttons">
-<a class="btn btn-main">Teklif Al</a>
-<a class="btn btn-outline">Nasıl Çalışır?</a>
-</div>
-
-</div>
-
-<div class="hero-right">
-
-<div class="glass-card">
-
-<img src="https://i.imgur.com/F8lKQ0F.png">
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="container">
-
-<h2 class="section-title">
-Popüler Hizmetler
-</h2>
-
-<p class="section-sub">
-Türkiye'nin en çok kullanılan kategorileri
-</p>
-
-<div class="grid-4">
-
-<div class="card">
-<div class="card-icon">⚡</div>
-<h3>Elektrik</h3>
-<p>Elektrik arıza ve montaj hizmetleri.</p>
-</div>
-
-<div class="card">
-<div class="card-icon">🚿</div>
-<h3>Tesisat</h3>
-<p>Su tesisatı bakım hizmetleri.</p>
-</div>
-
-<div class="card">
-<div class="card-icon">❄</div>
-<h3>Klima</h3>
-<p>Klima bakım ve montaj.</p>
-</div>
-
-<div class="card">
-<div class="card-icon">🎨</div>
-<h3>Boya</h3>
-<p>Ev ve iş yeri boya hizmetleri.</p>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<footer>
-
-<div class="container">
-
-<div class="footer-grid">
-
-<div class="footer-col">
-<h3>USTABAŞI</h3>
-<p>Türkiye'nin modern usta platformu.</p>
-</div>
-
-<div class="footer-col">
-<h3>Sayfalar</h3>
-
-<ul>
-<li><a href="galeri.html">Galeri</a></li>
-<li><a href="ustagram.html">Ustagram</a></li>
-<li><a href="profil.html">Profil</a></li>
-</ul>
-
-</div>
-
-<div class="footer-col">
-<h3>İletişim</h3>
-
-<ul>
-<li>info@ustabasi.com</li>
-<li>0850 000 00 00</li>
-</ul>
-
-</div>
-
-</div>
-
-<div class="copyright">
-© 2026 USTABAŞI
-</div>
-
-</div>
-
-</footer>
-
-<script src="js/app.js"></script>
-
+</main>
+<script src="/js/config.js"></script>
+<script type="module" src="/js/app.js"></script>
+<noscript><div class="container"><div class="alert err">Bu site JavaScript gerektirir. Lütfen tarayıcınızda JavaScript'i etkinleştirin.</div></div></noscript>
 </body>
 </html>
