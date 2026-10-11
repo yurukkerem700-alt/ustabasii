@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Usta Ol | USTABAŞI</title>
+<meta name="description" content="USTABAŞI'nda usta olarak ücretsiz profil oluştur, bölgendeki iş taleplerine ulaş.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#060a14">
+<link rel="canonical" href="https://ustabasii.com.tr/usta-ol">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="USTABAŞI">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Usta Ol | USTABAŞI">
+<meta property="og:description" content="USTABAŞI'nda usta olarak ücretsiz profil oluştur, bölgendeki iş taleplerine ulaş.">
+<meta property="og:url" content="https://ustabasii.com.tr/usta-ol">
+<meta property="og:image" content="https://ustabasii.com.tr/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="/css/site.css">
+
+</head>
+<body data-page="usta-ol">
+<main>
+
+<section class="page-hero"><div class="container"><h1>Usta ol</h1><p>Ücretsiz profil oluştur, müşteriler seni bulsun.</p></div></section>
+<section class="container" style="padding-bottom:3rem"><div class="narrow" style="max-width:760px"><div class="form-card" id="applyWrap">
+  <div id="msg" aria-live="polite"></div>
+  <form id="applyForm" novalidate><div class="form-grid">
+    <div class="field"><label for="aName">Ad Soyad *</label><input id="aName" maxlength="80" autocomplete="name"></div>
+    <div class="field"><label for="aTitle">Unvan *</label><input id="aTitle" maxlength="80" placeholder="Örn. Elektrik Ustası"></div>
+    <div class="field"><label for="aCat">Kategori *</label><select id="aCat"></select></div>
+    <div class="field"><label for="aCity">Şehir *</label><select id="aCity"></select></div>
+    <div class="field"><label for="aDistrict">İlçe</label><input id="aDistrict" maxlength="60"></div>
+    <div class="field"><label for="aPhone">Cep telefonu *</label><input id="aPhone" type="tel" placeholder="05XX XXX XX XX"></div>
+    <div class="field"><label for="aExp">Tecrübe (yıl)</label><input id="aExp" type="number" min="0" max="60" value="1"></div>
+    <div class="field"><label for="aRate">Saatlik başlangıç ücreti (₺)</label><input id="aRate" type="number" min="0" max="100000"></div>
+    <div class="field full"><label for="aBio">Kendini tanıt *</label><textarea id="aBio" maxlength="1000" placeholder="Hangi işleri yapıyorsun? Referanslarından bahset."></textarea></div>
+  </div>
+  <label style="display:flex;gap:.6rem;align-items:flex-start;font-weight:400;color:var(--muted);margin:.4rem 0 1.2rem"><input id="aKvkk" type="checkbox" style="width:auto;margin-top:.25rem"><span><a class="grad-text" href="/kvkk" target="_blank">KVKK metnini</a> okudum; bilgilerimin incelenmesini kabul ediyorum.</span></label>
+  <button class="btn btn-primary btn-block" type="submit">Başvuruyu Gönder</button></form>
+</div></div></section>
+</main>
+<script src="/js/config.js"></script>
+<script type="module" src="/js/app.js"></script>
+<noscript><div class="container"><div class="alert err">Bu site JavaScript gerektirir. Lütfen tarayıcınızda JavaScript'i etkinleştirin.</div></div></noscript>
+</body>
+</html>

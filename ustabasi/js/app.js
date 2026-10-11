@@ -1,16 +1,9 @@
-function toggleMenu(){
-document.getElementById('navLinks').classList.toggle('active');
-}
+import { renderLayout } from "./layout.js";
+import { PAGES } from "./pages.js";
 
-window.addEventListener('scroll',()=>{
-
-const nav=document.querySelector('nav');
-
-if(window.scrollY>50){
-nav.style.background='#050c18';
-}
-else{
-nav.style.background='rgba(7,17,32,.9)';
-}
-
-});
+(async () => {
+  try { await renderLayout(); } catch (e) { console.error("layout", e); }
+  const page = document.body.dataset.page;
+  const init = PAGES[page];
+  if (init) { try { await init(); } catch (e) { console.error(page, e); } }
+})();

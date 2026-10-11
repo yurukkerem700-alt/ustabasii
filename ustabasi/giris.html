@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Giriş Yap / Kayıt Ol | USTABAŞI</title>
+<meta name="description" content="USTABAŞI hesabına giriş yap veya ücretsiz hesap oluştur.">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#060a14">
+<link rel="canonical" href="https://ustabasii.com.tr/giris">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="USTABAŞI">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Giriş Yap / Kayıt Ol | USTABAŞI">
+<meta property="og:description" content="USTABAŞI hesabına giriş yap veya ücretsiz hesap oluştur.">
+<meta property="og:url" content="https://ustabasii.com.tr/giris">
+<meta property="og:image" content="https://ustabasii.com.tr/images/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="/css/site.css">
+
+</head>
+<body data-page="giris">
+<main>
+
+<section class="container" style="padding:4rem 0"><div class="narrow"><div class="form-card">
+  <div class="tabs" role="tablist"><button type="button" role="tab" data-tab="login" class="active">Giriş Yap</button><button type="button" role="tab" data-tab="signup">Kayıt Ol</button></div>
+  <div id="msg" aria-live="polite"></div>
+  <form id="authForm" novalidate>
+    <div class="field signup-only" hidden><label for="fullName">Ad Soyad</label><input id="fullName" maxlength="80" autocomplete="name"></div>
+    <div class="field"><label for="email">E-posta</label><input id="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="password">Şifre</label><input id="password" type="password" minlength="8" autocomplete="current-password" required></div>
+    <label class="signup-only" hidden style="display:flex;gap:.6rem;align-items:flex-start;font-weight:400;color:var(--muted);margin-bottom:1rem"><input id="kvkk" type="checkbox" style="width:auto;margin-top:.25rem"><span><a class="grad-text" href="/kvkk" target="_blank">KVKK</a> ve <a class="grad-text" href="/kullanim-kosullari" target="_blank">kullanım koşullarını</a> okudum, kabul ediyorum.</span></label>
+    <button class="btn btn-primary btn-block" id="submitBtn" type="submit">Giriş Yap</button>
+    <p style="text-align:center;margin-top:1rem"><a href="#" id="forgot" class="muted">Şifremi unuttum</a></p>
+  </form></div></div></section>
+</main>
+<script src="/js/config.js"></script>
+<script type="module" src="/js/app.js"></script>
+<noscript><div class="container"><div class="alert err">Bu site JavaScript gerektirir. Lütfen tarayıcınızda JavaScript'i etkinleştirin.</div></div></noscript>
+</body>
+</html>
